@@ -11,6 +11,8 @@ declare
 			PG_DATABASE: string
 			PG_PASSWORD: string
 			PG_PORT: number
+			SALT: number
+			BCRYPT_SRCRET: string
 		}
 	}
 }
