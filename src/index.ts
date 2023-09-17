@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 
 // Router
 import registerRouter from "./routers/Register"
+import loginRouter from "./routers/Login"
 
 dotenv.config()
 const app: Application = express()
@@ -30,5 +31,6 @@ app.get("/", (req: Request, res: Response) => {
 
 // Use router
 app.use("/api/register", registerRouter)
+app.use("/api/auth", loginRouter)
 
 app.listen(PORT, () => console.log(`Server running at port ${PORT}`))
