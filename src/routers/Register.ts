@@ -24,9 +24,7 @@ registerRouter.post("/", async (req: Request, res: Response) => {
 		)
 		//check duplicate email
 		if (rows.rowCount > 0) {
-			return res.status(400).json({
-				message: "Email is already registered",
-			})
+			return res.status(400).json({ status: "Email is already registered" })
 		}
 
 		// insert new user
@@ -39,12 +37,10 @@ registerRouter.post("/", async (req: Request, res: Response) => {
 		)
 	} catch (error) {
 		console.log(error)
-		res.status(400).json({
-			message: "Insert fail",
-		})
+		res.status(400).json({ status: "Insert fail" })
 	}
 	// insert success response
-	res.status(201).json({ message: "User registered successfully" })
+	res.status(201).json({ status: "User registered successfully" })
 })
 
 export default registerRouter

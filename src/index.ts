@@ -30,9 +30,9 @@ app.use(
 
 app.get("/", AuthenticateToken, (req: Request, res: Response) => {
 	try {
-		res.status(200).json({ message: "Hello world" })
+		res.status(200).json({ status: "Hello world" })
 	} catch (error) {
-		res.status(401).json({ message: "Server error" })
+		res.status(401).json({ status: "Unauthorized" })
 	}
 })
 

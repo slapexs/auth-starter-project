@@ -27,11 +27,11 @@ loginRouter.post("/login", async (req: Request, res: Response) => {
 				sameSite: "none",
 				maxAge: 300000,
 			})
-			res.status(200).json({ message: "Login success" })
+			res.status(200).json({ status: "Login success" })
 		}
 	} catch (err) {
 		console.log(err)
-		res.status(400).json({ message: err })
+		res.status(400).json({ status: err })
 	}
 })
 

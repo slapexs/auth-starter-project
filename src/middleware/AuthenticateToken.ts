@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import jwt from "jsonwebtoken"
+import jwt, { TokenExpiredError } from "jsonwebtoken"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -10,15 +10,23 @@ const AuthenticateToken = async (
 ) => {
 	const { authToken } = req.cookies
 	if (authToken == null) {
-		return res.sendStatus(401)
+		return res
+			.status(401)
+			.json({ status: "Authentication failed. No token provided." })
 	}
 
 	try {
-		const user = jwt.verify(authToken, process.env.SECRET_KEY as string)
+		jwt.verify(authToken, process.env.SECRET_KEY as string)
 		next()
 	} catch (error) {
 		console.log(error)
-		res.status(403)
+		// Token expired
+		if (error instanceof TokenExpiredError) {
+			return res
+				.status(401)
+				.json({ status: "Authentication failed. Token expired." })
+		}
+		return res.status(401).json({ status: "Unauthorized" })
 	}
 }
 
